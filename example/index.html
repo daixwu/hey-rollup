@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Bundle-name</title>
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0" name="viewport">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="format-detection" content="telephone=no" />
+  <script>
+    ;
+    (function (win, doc) {
+      let docEl = doc.documentElement;
+      let refreshRem = function () {
+          let w = docEl.getBoundingClientRect().width || 320;
+          let fontSize = w / 3.75; //750设计稿下，root font-size:100px为基准
+          fontSize = fontSize > 200 ? 200 : fontSize;
+          docEl.style.fontSize = fontSize + 'px';
+          let finalFontSize = parseFloat(win.getComputedStyle(docEl).getPropertyValue("font-size"));
+          if (finalFontSize === finalFontSize) return;
+          fontSize = fontSize + (fontSize - finalFontSize);
+          docEl.style.fontSize = fontSize + 'px';
+          win.fontSize = fontSize;
+        },
+        refreshRemId;
+      win.addEventListener('resize', function () {
+        clearTimeout(refreshRemId);
+        refreshRemId = setTimeout(refreshRem, 100);
+      }, false);
+      win.addEventListener('pageshow', function (e) {
+        if (e.persisted) {
+          clearTimeout(refreshRemId);
+          refreshRemId = setTimeout(refreshRem, 100);
+        }
+      }, false);
+      refreshRem();
+    })(window, document);
+  </script>
+</head>
+
+<body>
+  <div class="App">
+    <div class="Page home">
+      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. At, repellendus voluptas quisquam ipsam nulla tempora
+        ea eum corrupti debitis placeat nesciunt nemo vero ratione sint voluptates laboriosam amet. Dolorum, fuga?</p>
+    </div>
+  </div>
+  <script src="https://cdn.bootcss.com/zepto/1.2.0/zepto.min.js"></script>
+  <script src="./dist/example.js"></script>
+</body>
+
+</html>
