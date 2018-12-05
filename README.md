@@ -173,7 +173,11 @@ export default {
 
 ## 兼容 commonjs
 
-npm 生态已经繁荣了多年，commonjs 规范作为 npm 的包规范，大量的 npm 包都是基于 commonjs 规范来开发的，因此在完美支持 es6 模块规范之前，我们仍旧需要兼容 commonjs 模块规范。rollup 提供了插件 [rollup-plugin-commonjs](https://github.com/rollup/rollup-plugin-commonjs)，以便于在 rollup 中引用 commonjs 规范的包。该插件的作用是将 commonjs 模块转成 es6 模块。rollup-plugin-commonjs 通常与 [rollup-plugin-node-resolve](https://github.com/rollup/rollup-plugin-node-resolve) 一同使用，后者用来解析依赖的模块路径。
+npm 生态已经繁荣了多年，commonjs 规范作为 npm 的包规范，大量的 npm 包都是基于 commonjs 规范来开发的，因此在完美支持 es6 模块规范之前，我们仍旧需要兼容 commonjs 模块规范。
+
+rollup 提供了插件 [rollup-plugin-commonjs](https://github.com/rollup/rollup-plugin-commonjs)，以便于在 rollup 中引用 commonjs 规范的包。该插件的作用是将 commonjs 模块转成 es6 模块。
+
+rollup-plugin-commonjs 通常与 [rollup-plugin-node-resolve](https://github.com/rollup/rollup-plugin-node-resolve) 一同使用，后者用来解析依赖的模块路径。
 
 ### 安装模块
 
@@ -225,13 +229,13 @@ import replace from "rollup-plugin-replace";
 export default {
   plugins: [
     replace({
-      ENV: JSON.stringify(process.env.NODE_ENV || "development")
+      ENV: JSON.stringify(process.env.NODE_ENV)
     })
   ]
 };
 ```
 
-> 在我们的配置中找到每一个 ENV 并用 process.env.NODE_ENV 去替换，SON.stringify 用来确保值是双引号的，不像 ENV 这样。
+> 在我们的配置中找到每一个 ENV 并用 process.env.NODE_ENV 去替换，JSON.stringify 用来确保值是双引号的，不像 ENV 这样。
 
 ## 压缩 bundle
 
